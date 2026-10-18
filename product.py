@@ -158,7 +158,7 @@ def print_solution(solution):
             print(" ".join("Q" if cell else "." for cell in row))
 
 
-n = 128
+n = 343
 solution = solve_n_queens(n)
 print_solution(solution)
 print("Run time:  %s seconds" % (time.time() - start_time))

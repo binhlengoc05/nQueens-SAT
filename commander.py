@@ -3,6 +3,7 @@ import math
 from pysat.solvers import Glucose3
 import time
 
+size = 0    # kích thước bàn cờ, được gán trong solve_n_queens, là biến toàn cục
 new_variables_count = 0
 start_time = time.time()
 def generate_variables(n):
@@ -28,7 +29,7 @@ def generate_new_variables(end, length):
 
 def binary_AMO(clauses, variables):
     global new_variables_count
-    temp_new_variables = generate_new_variables(n ** 2 + new_variables_count, len(variables))
+    temp_new_variables = generate_new_variables(size ** 2 + new_variables_count, len(variables))
     new_variables_count += len(temp_new_variables)
     binary_combinations = generate_binary_combinations(len(temp_new_variables))
 
@@ -70,8 +71,8 @@ def binomial_EO(clauses, variables):
 
 def at_most_one(clauses, variables):
         global new_variables_count
-        groups = grouping_variables(variables, n/math.floor(math.sqrt(n)))
-        commanders = generate_commanders(n ** 2 + new_variables_count + 1, len(groups))
+        groups = grouping_variables(variables, size/math.floor(math.sqrt(size)))
+        commanders = generate_commanders(size ** 2 + new_variables_count + 1, len(groups))
         new_variables_count += len(groups)
         binomial_AMO(clauses, commanders)
 
@@ -147,6 +148,8 @@ def generate_clauses(n, variables):
 
 
 def solve_n_queens(n):
+    global size
+    size = n
     variables = generate_variables(n)
     clauses = generate_clauses(n, variables)
 
@@ -169,7 +172,7 @@ def print_solution(solution):
             print(" ".join("Q" if cell else "." for cell in row))
 
 
-n = 128
-solution = solve_n_queens(n)
-#print_solution(solution)
-print("Run time:  %s seconds" % (time.time() - start_time))
+# n = 256
+# solution = solve_n_queens(n)
+# print_solution(solution)
+# print("Run time:  %s seconds" % (time.time() - start_time))

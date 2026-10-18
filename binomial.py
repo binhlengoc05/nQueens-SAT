@@ -44,7 +44,7 @@ def generate_clauses(n, variables):
 def solve_n_queens(n):
     variables = generate_variables(n)
     clauses = generate_clauses(n, variables)
-    print(clauses)
+    #print(clauses) tạm thời bỏ dòng này
 
     solver = Glucose3()
     for clause in clauses:
@@ -66,7 +66,7 @@ def print_solution(solution):
             print(" ".join("Q" if cell else "." for cell in row))
 
 
-n = 8
-# print(generate_clauses(n, generate_variables(n)))
+n = 256
+# print(generate_clauses(n, generate_variables(n))) có thể in ra các mệnh đề để kiểm tra
 solution = solve_n_queens(n)
 print_solution(solution)

@@ -1,5 +1,6 @@
 from pysat.solvers import Glucose3
 
+size = 0    # kích thước bàn cờ, được gán trong solve_n_queens, là biến toàn cục
 new_variables_count = 0
 def generate_variables(n):
     return [[i * n + j + 1 for j in range(n)] for i in range(n)]
@@ -9,7 +10,7 @@ def generate_variables(n):
     return [[i * n + j + 1 for j in range(n)] for i in range(n)]
 
 def generate_new_variables(new_variables_count, length):
-    start = n ** 2 + new_variables_count
+    start = size ** 2 + new_variables_count
     return [i for i in range(start + 1,start + length)]
 
 
@@ -86,6 +87,8 @@ def generate_clauses(n, variables):
 
 
 def solve_n_queens(n):
+    global size
+    size = n
     variables = generate_variables(n)
     clauses = generate_clauses(n, variables)
 
@@ -108,7 +111,7 @@ def print_solution(solution):
             print(" ".join("Q" if cell else "." for cell in row))
 
 
-n = 64
-solution = solve_n_queens(n)
-print_solution(solution)
+
+# solution = solve_n_queens(16)
+# print_solution(solution)
 
